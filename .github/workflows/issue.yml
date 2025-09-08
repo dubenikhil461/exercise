@@ -2,7 +2,7 @@ name: exercise
 on: issues
 
 jobs:
-  lint:
+  issue:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
