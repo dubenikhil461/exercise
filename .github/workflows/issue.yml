@@ -1,9 +1,9 @@
-name: exercise
+name: issues workflow
 on: issues
 
 jobs:
   issue:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        run : echo{{toJSON(github.event)}}
+      - name: Print event payload
+        run: echo '${{ toJSON(github.event) }}'
