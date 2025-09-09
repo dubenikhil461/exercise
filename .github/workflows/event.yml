@@ -1,0 +1,32 @@
+name: eventrigger
+on:
+    pull_request:
+        types:
+            - opened
+            - closed
+        paths:
+            - './src/**'    
+    push:
+        branches:
+            - master
+            - 'dev-*'
+            - 'feat/**'
+        paths-ignore:
+            - '.github/workflows'
+    workflow_dispatch:
+jobs:
+    event:
+        runs-on: ubuntu-latest
+        steps:
+         - name: Checkout repository
+           uses: actions/checkout@v3
+
+         - name: Install dependencies
+           run: npm install
+
+         - name: Run lint, test, and build
+           run: |
+              npm run lint
+              npm run test
+              npm run build
+
