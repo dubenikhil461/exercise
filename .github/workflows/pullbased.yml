@@ -1,0 +1,22 @@
+name: pullbased
+on:
+    pull_request:
+        types:
+           - opened
+           - closed
+    workflow_dispatch:
+jobs:
+    pullrequest:
+        runs-on: ubuntu-latest
+        steps:
+          - name: get code
+            uses: actions/checkout@v3
+
+          - name: install dependencies
+            run : npm ci
+
+          - name: run test,lint
+            run: |
+               npm run test
+               npm run lint
+               npm run build

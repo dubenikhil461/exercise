@@ -1,9 +1,9 @@
-name: issues workflow
-on: issues
+# name: issues workflow
+# on: issues
 
-jobs:
-  issue:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print event payload
-        run: echo '${{ toJSON(github.event) }}'
+# jobs:
+#   issue:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Print event payload
+#         run: echo '${{ toJSON(github.event) }}'
