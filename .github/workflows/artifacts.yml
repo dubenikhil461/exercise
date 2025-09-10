@@ -23,4 +23,4 @@ jobs:
       - name : get files in download
         run: |
           ls
-          "echo deploying...."
+          echo "deploying...."
