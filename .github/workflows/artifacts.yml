@@ -17,11 +17,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
            - name: get code
-             uses: actions/checkout@v4
+             uses: actions/checkout@v3
            - name: get dependencies
              run: npm ci
            - name: upload artifacts
-             uses: actions/upload-artifact@v3
+             uses: actions/upload-artifact@v4
              with:
                 path: |
                     dist
