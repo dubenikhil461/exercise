@@ -22,5 +22,5 @@ jobs:
           path: download-dist
       - name : get files in download
         run: |
-          ls
+          ls -R download-dist
           echo "deploying...."
