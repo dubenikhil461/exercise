@@ -20,4 +20,7 @@ jobs:
         with:
           name: build-output
           path: download-dist
-      - run: echo "Artifact downloaded to download-dist"
+      - name : get files in download
+        run: |
+          ls
+          "echo deploying...."
