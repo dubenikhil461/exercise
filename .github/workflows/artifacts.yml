@@ -3,10 +3,15 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
+    outputs:
+       script-file: ${{steps.publish.outputs.script-file}}
     steps:
       - uses: actions/checkout@v3
       - run: npm ci
       - run: npm run build
+      - name: publish js filename
+        id: publish
+        run: find dist/assest/*.js -type f- execdir echo "script-file{}">>$GITHUB_OUTPUT ";"
       - uses: actions/upload-artifact@v4
         with:
           name: build-output
@@ -20,7 +25,7 @@ jobs:
         with:
           name: build-output
           path: download-dist
-      - name : get files in download
-        run: |
-          ls -R download-dist
-          echo "deploying...."
+      - name: output contents
+        run : ls
+      - name: outputfilename
+        run: echo ${{needs.test.outputs.script-file}}
