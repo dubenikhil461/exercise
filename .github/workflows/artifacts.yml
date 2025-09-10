@@ -1,36 +1,23 @@
 name: artifacts
-on:
-    push
+on: push
 jobs:
-    test:
-       runs-on: ubuntu-latest
-       steps:
-         - name: get code
-           uses: actions/checkout@v3
-         - name: get dependencies
-           run: npm ci
-         - name: run test
-           run: npm run test
-         
-    build:
-        needs: test
-        runs-on: ubuntu-latest
-        steps:
-           - name: get code
-             uses: actions/checkout@v3
-           - name: get dependencies
-             run: npm ci
-           - name: upload artifacts
-             uses: actions/upload-artifact@v4
-             with:
-                path: |
-                    dist
-                    packages.json
-    deploy:
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-           - name: deploy
-             run: echo "deploying..."
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: dist
 
-
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: dist
+      - run: echo "deploying..."
