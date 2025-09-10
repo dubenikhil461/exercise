@@ -24,3 +24,4 @@ jobs:
         with:
           name: build-output
           path: ./download-dist
+      - run: echo "download"
