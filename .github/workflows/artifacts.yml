@@ -1,0 +1,36 @@
+name: artifacts
+on:
+    push
+jobs:
+    test:
+       runs-on: ubuntu-latest
+       steps:
+         - name: get code
+           uses: actions/checkout@v3
+         - name: get dependencies
+           run: npm ci
+         - name: run test
+           run: npm run test
+         
+    build:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+           - name: get code
+             uses: actions/checkout@v3
+           - name: get dependencies
+             run: npm ci
+           - name: upload artifacts
+             uses: actions/upload-artifact@v3
+             with:
+                path: |
+                    dist
+                    packages.json
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+           - name: deploy
+             run: echo "deploying"
+
+
