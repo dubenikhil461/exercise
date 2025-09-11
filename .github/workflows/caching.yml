@@ -1,0 +1,32 @@
+name: caching
+on: push
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+           - name: get code
+             run: actions/checkout@v3
+           - name: caching
+             uses: actions/cache@v3
+             with:
+                path: ~/.npm
+                key: deps-node-modules-${{hashFiles('**/package.lock.json')}}
+           - name: install dependencies
+             run: |
+                npm ci
+                npm run test
+    build:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+           - name: get code
+             run: actions/checkout@v3
+           - name: caching
+             uses: actions/cache@v3
+             with:
+                path: ~/.npm
+                key: deps-node-modules-${{hashFiles('**/package.lock.json')}}
+           - name: install dependencies
+             run: |
+                npm ci
+                npm run build
